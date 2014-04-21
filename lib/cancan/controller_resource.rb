@@ -183,6 +183,7 @@ module CanCan
         if parent_resource
           base = @options[:singleton] ? resource_class : parent_resource.send(@options[:through_association] || name.to_s.pluralize)
           base = base.scoped if base.respond_to?(:scoped) && defined?(ActiveRecord) && ActiveRecord::VERSION::MAJOR == 3
+          base = base.scope if base.respond_to?(:scope) && defined?(ActiveRecord) && ActiveRecord::VERSION::MAJOR == 4
           base
         elsif @options[:shallow]
           resource_class
